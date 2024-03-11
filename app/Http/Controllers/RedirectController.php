@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 use App\Http\Requests\RedirectRequest;
 use Illuminate\Support\Facades\DB;
 
-
 class RedirectController extends Controller
 {
     public function store(RedirectRequest $request)

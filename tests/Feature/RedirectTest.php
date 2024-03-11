@@ -20,7 +20,6 @@ class RedirectTest extends TestCase
     $this->assertDatabaseHas('redirects', ['url' => $data['url']]);
 }
 
-
     public function test_create_redirect_with_valid_url()
     {
         $data = MyRedirect::factory()->raw(['url' => 'https://google.com']);
@@ -51,21 +50,21 @@ class RedirectTest extends TestCase
     }
 
     public function test_stats_validation()
-{
-    $redirect = MyRedirect::factory()->create();
+    {
+        $redirect = MyRedirect::factory()->create();
 
-    // Simular acessos ao redirecionamento
-    MyRedirectLog::factory()->count(5)->create(['redirect_id' => $redirect->id]);
+        // Simular acessos ao redirecionamento
+        MyRedirectLog::factory()->count(5)->create(['redirect_id' => $redirect->id]);
 
-    $response = $this->getJson("/api/redirects/{$redirect->id}/stats");
+        $response = $this->getJson("/api/redirects/{$redirect->id}/stats");
 
-    $response->assertStatus(200)
-        ->assertJsonStructure([
-            'total_accesses',
-            'unique_ips',
-            'top_referrers',
-            'accesses_last_10_days',
-        ]);
-}
+        $response->assertStatus(200)
+            ->assertJsonStructure([
+                'total_accesses',
+                'unique_ips',
+                'top_referrers',
+                'accesses_last_10_days',
+            ]);
+    }
 
 }
